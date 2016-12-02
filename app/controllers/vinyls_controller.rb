@@ -61,6 +61,11 @@ class VinylsController < ApplicationController
     end
   end
 
+  def import
+    Vinyl.import(params[:file])
+    redirect_to vinyls_path, notice: "vinyls added successfully"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vinyl
