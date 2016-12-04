@@ -2,6 +2,38 @@
 <div class="container">
   <h1>Vinyls</h1>
 
+  <% form_tag import_vinyls_path, multipart: true, class: 'form-inline' do %>
+
+    <div class="form-group">
+      <%= link_to "Export CSV", vinyls_path(format: :csv), class: 'btn btn-primary' %>
+    </div>
+
+    <div class="form-group">
+      <%= file_field_tag :file, class: '' %>
+    </div>
+
+    <div class="form-group">
+      <%= submit_tag "Import CSV", class: 'btn btn-info' %>
+    </div>
+
+  <% end %>
+
+  <% simple_form_for :import_vinyls, url: import_vinyls_path, html: {multipart: true, class: 'form-inline'} do |f| %>
+
+    <div class="form-group">
+      <%= link_to "Export CSV", vinyls_path(format: :csv), class: 'btn btn-primary' %>
+    </div>
+
+    <div class="form-group">
+      <%= file_field_tag :file, class: '' %>
+    </div>
+
+    <div class="form-group">
+      <%= submit_tag "Import CSV", class: 'btn btn-info' %>
+    </div>
+
+  <% end %>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -41,12 +73,6 @@
   </table>
 
   <br>
-
-  <h3>Import</h3>
-  <%= form_tag import_vinyls_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag 'Upload vinyls' %>
-  <% end %>
 
   <%= link_to 'New Vinyl', new_vinyl_path, class:"btn btn-primary" %>
 

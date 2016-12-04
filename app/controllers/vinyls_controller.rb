@@ -5,6 +5,10 @@ class VinylsController < ApplicationController
   # GET /vinyls.json
   def index
     @vinyls = Vinyl.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @vinyls.to_csv(['catalog','artist', 'title', 'label', 'format', 'rating', 'released', 'release_id', 'notes', 'date']) }
+    end
   end
 
   # GET /vinyls/1
@@ -63,7 +67,7 @@ class VinylsController < ApplicationController
 
   def import
     Vinyl.import(params[:file])
-    redirect_to vinyls_path, notice: "vinyls added successfully"
+    redirect_to root_path, notice: "vinyls imported"
   end
 
   private
