@@ -10,10 +10,10 @@ class Vinyl < ApplicationRecord
   end
   #import CSV
   def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(file.path, headers: true, :quote_char => "\'") do |row|
       vinyl_hash = row.to_hash
       vinyl = find_or_create_by!(catalog: vinyl_hash['catalog'], artist: vinyl_hash['artist'], title: vinyl_hash['title'], label: vinyl_hash['label'], format: vinyl_hash['format'], rating: vinyl_hash['rating'], released: vinyl_hash['released'], release_id: vinyl_hash['release_id'], notes: vinyl_hash['notes'], date: vinyl_hash['date'])
-      vinyl.update_attributes(vinyl_path)
+      vinyl.update_attributes(vinyl_hash)
     end
   end
 end
